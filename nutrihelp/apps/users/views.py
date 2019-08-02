@@ -16,21 +16,9 @@ class SignUp(generic.CreateView):
         return context
 
 
-class LoginAdmin(generic.FormView):
-    form_class = AuthenticationForm
-    success_url = '/admin/'
-    template_name = 'signup.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Iniciar sesión como nutricionista"
-        context["buttonText"] = "Iniciar sesión"
-        return context
-
-
 class LoginRegular(generic.FormView):
     form_class = AuthenticationForm
-    success_url = '/regular/'
+    success_url = '/dashboard/'
     template_name = 'signup.html'
 
     def get_context_data(self, **kwargs):

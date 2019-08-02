@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% include "partials/navbar.html" %}
-
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h1 class="display-4">Nutrihelp</h1>
       <p class="lead">Bienvenido al sistema nutrihelp, donde podrás responder...</p>
@@ -21,7 +19,7 @@
                   <h4 class="card-title pricing-card-title">Iniciar sesión como <small class="text-muted"> usuario</small></h4>
                   <li></li>
                 </ul>
-                <button type="button" class="btn btn-lg btn-block btn-outline-primary">Iniciar sesión</button>
+                <a href="{% url 'users:login' %}" class="btn btn-lg btn-block btn-outline-primary">Iniciar sesión</a>
               </div>
             </div>
           </div>
@@ -35,7 +33,7 @@
                   <h4 class="card-title pricing-card-title">Iniciar sesión como <small class="text-muted"> nutricionista</small></h4>
                   <li></li>
                 </ul>
-                <button type="button" class="btn btn-lg btn-block btn-outline-primary">Iniciar sesión</button>
+                <a href="/admin" class="btn btn-lg btn-block btn-outline-primary">Iniciar sesión</a>
               </div>
             </div>
           </div>
