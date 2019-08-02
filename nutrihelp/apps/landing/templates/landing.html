@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% include "partials/navbar.html" %}
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="display-4">Nutrihelp</h1>
+      <p class="lead">Bienvenido al sistema nutrihelp, donde podrás responder...</p>
+    </div>
+
+    <div class="container">
+      <div class="text-center">
+        <div class="row">
+          <div class="col-6">
+            <div class="card box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Usuario</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled mt-3 mb-4">
+                  <h4 class="card-title pricing-card-title">Iniciar sesión como <small class="text-muted"> usuario</small></h4>
+                  <li></li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-outline-primary">Iniciar sesión</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card box-shadow">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Nutricionista</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled mt-3 mb-4">
+                  <h4 class="card-title pricing-card-title">Iniciar sesión como <small class="text-muted"> nutricionista</small></h4>
+                  <li></li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-outline-primary">Iniciar sesión</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
