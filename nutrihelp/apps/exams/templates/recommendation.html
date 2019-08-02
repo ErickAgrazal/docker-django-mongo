@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>{{object.title}}</h1>
-{{object.content}}
-<a class="btn btn-primary" href="/dashboard">Volver al inicio</a>
+{{object.content | safe}}
+<hr>
+<a class="btn btn-primary mt-3" href="/dashboard">Volver al inicio</a>
 {% endblock content %}

@@ -1,12 +1,14 @@
 # exams/views.py
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, TemplateView
-from django.shortcuts import redirect
+from django.views.generic.detail import DetailView
 
 from .forms import TakeExamForm
+from .models import Recommendation
 
 
 class TakeExamView(FormView):
@@ -40,5 +42,6 @@ class TakeExamView(FormView):
         return context
 
 
-class RecommendationView(TemplateView):
+class RecommendationView(DetailView):
     template_name = "recommendation.html"
+    model = Recommendation
