@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', include('apps.landing.urls', namespace="landing")),
+    path('dashboard/', include('apps.dashboard.urls', namespace="dashboard")),
     path('usuarios/', include('apps.users.urls', namespace="users")),
 ]

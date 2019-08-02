@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # My apps
     'apps',
+    'apps.dashboard',
     'apps.users',
     'apps.landing',
     'crispy_forms',
