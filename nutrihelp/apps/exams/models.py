@@ -59,8 +59,8 @@ class Exam(AbstractHistory):
                                  null=True, verbose_name="Apellidos")
     birthdate = models.DateField(
         auto_now=False, auto_now_add=False, verbose_name="Fecha de nacimiento")
-    contact = models.DateField(
-        auto_now=False, auto_now_add=False, verbose_name="Télefono de contacto")
+    contact = models.CharField(max_length=20, blank=True,
+                               null=True, verbose_name="Contacto")
     civil_status = models.CharField(
         max_length=2,
         choices=CIVIL_STATUSES,
@@ -76,3 +76,8 @@ class Exam(AbstractHistory):
         User, on_delete=models.CASCADE, verbose_name="Usuario")
     answered_questions = models.ForeignKey(
         AnsweredQuestion, verbose_name="Respuesta de pregunta", on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = "Exámen"
+        verbose_name_plural = "Exámenes"

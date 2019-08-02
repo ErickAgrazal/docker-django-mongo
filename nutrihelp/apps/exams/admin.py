@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import (Question, Answer)
+from .models import (Question, Answer, Exam)
 
 
 class AnswerInline(admin.TabularInline):
@@ -17,3 +17,12 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [
         AnswerInline,
     ]
+
+
+@admin.register(Exam)
+class ExamsTakenAdmin(admin.ModelAdmin):
+    list_display = ('user', 'created_at')
+    list_filter = ['user', ]
+    search_fields = ('user', )
+    actions_on_top = True
+    actions_on_bottom = True
