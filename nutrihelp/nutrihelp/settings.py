@@ -41,8 +41,11 @@ INSTALLED_APPS = [
     # My apps
     'apps',
     'apps.dashboard',
+    'apps.exams',
     'apps.users',
     'apps.landing',
+
+    # Custom apps
     'crispy_forms',
 ]
 
