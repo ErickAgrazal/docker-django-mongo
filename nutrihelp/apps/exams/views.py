@@ -29,6 +29,7 @@ class TakeExamView(FormView):
         # delete it since its no longer needed
         if self.request.session.test_cookie_worked():
             self.request.session.delete_test_cookie()
+        form.save(user=self.request.user)
         return super(TakeExamView, self).form_valid(form)
 
     def get_context_data(self, *args, **kwargs):

@@ -1,7 +1,7 @@
 from django import forms
 from django.forms.fields import DateField
 
-from .models import Exam, Question
+from .models import Exam, Question, AnsweredQuestion
 
 
 class TakeExamForm(forms.ModelForm):
@@ -10,7 +10,7 @@ class TakeExamForm(forms.ModelForm):
 
     class Meta:
         model = Exam
-        exclude = ['answered_questions', 'user']
+        exclude = ['answered_questions', 'user', 'active']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -19,10 +19,16 @@ class TakeExamForm(forms.ModelForm):
                 queryset=question.answers, empty_label="Seleccione una respuesta", label=question.question_text)
 
     def clean(self):
-        print('In cleaning')
+        # Nothing to clean
+        pass
 
-    def save(self):
-        print('in save.....')
+    def save(self, user):
+        exam = self.instance
+        exam.user = user
+        exam.save()
+        for question in Question.objects.filter(active=True):
+            exam.answered_questions.add(
+                question, through_defaults={'answer': self.cleaned_data[question.slug]})
         # profile = self.instance
         # profile.first_name = self.cleaned_data[“first_name”]
         # profile.last_name = self.cleaned_data[“last_name”]

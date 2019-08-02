@@ -35,13 +35,6 @@ class Answer(AbstractHistory):
         verbose_name_plural = "Respuestas"
 
 
-class AnsweredQuestion(AbstractHistory):
-    question = models.ForeignKey(Question, null=True, blank=True, on_delete=models.CASCADE,
-                                 verbose_name="Pregunta", related_name='+')
-    answer = models.ForeignKey(Answer, null=True, blank=True, on_delete=models.CASCADE,
-                               verbose_name="Pregunta", related_name='+')
-
-
 class Exam(AbstractHistory):
     SINGLE = 'SO'
     MARRIED = 'CA'
@@ -74,10 +67,19 @@ class Exam(AbstractHistory):
     drugs = models.TextField(verbose_name="¿Qué medicamentos toma?")
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name="Usuario")
-    answered_questions = models.ForeignKey(
-        AnsweredQuestion, verbose_name="Respuesta de pregunta", on_delete=models.CASCADE)
+    answered_questions = models.ManyToManyField(
+        Question, verbose_name="Respuesta de pregunta", through='AnsweredQuestion')
 
     class Meta:
         ordering = ['-created_at']
         verbose_name = "Exámen"
         verbose_name_plural = "Exámenes"
+
+
+class AnsweredQuestion(AbstractHistory):
+    exam = models.ForeignKey(Exam, null=True, blank=True, on_delete=models.CASCADE,
+                             verbose_name="Examen", related_name='+')
+    question = models.ForeignKey(Question, null=True, blank=True, on_delete=models.CASCADE,
+                                 verbose_name="Pregunta", related_name='+')
+    answer = models.ForeignKey(Answer, null=True, blank=True, on_delete=models.CASCADE,
+                               verbose_name="Respuesta", related_name='+')
