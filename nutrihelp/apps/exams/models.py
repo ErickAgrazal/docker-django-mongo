@@ -1,8 +1,9 @@
+from autoslug import AutoSlugField
 from django.contrib.auth.models import User
 from django.db import models
+from tinymce.models import HTMLField
 
 from ..core.models import AbstractHistory
-from autoslug import AutoSlugField
 
 
 class Question(AbstractHistory):
@@ -94,3 +95,19 @@ class AnsweredQuestion(AbstractHistory):
         ordering = ['-created_at']
         verbose_name = "Repuesta a pregunta"
         verbose_name_plural = "Respuesta a preguntas"
+
+
+class Recommendation(AbstractHistory):
+    upper = models.IntegerField(default=100, verbose_name="% Puntaje superior")
+    bottom = models.IntegerField(default=0, verbose_name="% Puntaje inferior")
+    title = models.CharField(max_length=20, blank=True,
+                             null=True, verbose_name="Título")
+    content = HTMLField(verbose_name="Contenido")
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = "Recomendación"
+        verbose_name_plural = "Recomendaciones"

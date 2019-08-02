@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import (Question, Answer, Exam, AnsweredQuestion)
+from .models import (Question, Answer, Exam, AnsweredQuestion, Recommendation)
 
 
 class AnswerInline(admin.TabularInline):
@@ -34,3 +34,11 @@ class ExamsTakenAdmin(admin.ModelAdmin):
     inlines = [
         AnsweredQuestionInline,
     ]
+
+
+@admin.register(Recommendation)
+class RecommendationAdmin(admin.ModelAdmin):
+    list_display = ('title', 'upper', 'bottom')
+    # list_filter = []
+    actions_on_top = True
+    actions_on_bottom = True

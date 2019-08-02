@@ -47,6 +47,8 @@ INSTALLED_APPS = [
 
     # Custom apps
     'crispy_forms',
+    'tinymce',
+
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

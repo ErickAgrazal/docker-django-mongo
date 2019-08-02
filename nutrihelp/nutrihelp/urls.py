@@ -24,4 +24,7 @@ urlpatterns = [
     path('dashboard/', include('apps.dashboard.urls', namespace="dashboard")),
     path('examenes/', include('apps.exams.urls', namespace="exams")),
     path('usuarios/', include('apps.users.urls', namespace="users")),
+
+    # For nice rich text field
+    path('tinymce/', include('tinymce.urls')),
 ]
