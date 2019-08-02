@@ -1,10 +1,15 @@
 from django.contrib import admin
 
-from .models import (Question, Answer, Exam)
+from .models import (Question, Answer, Exam, AnsweredQuestion)
 
 
 class AnswerInline(admin.TabularInline):
     model = Answer
+
+
+class AnsweredQuestionInline(admin.TabularInline):
+    model = AnsweredQuestion
+    exclude = ['active', ]
 
 
 @admin.register(Question)
@@ -26,3 +31,6 @@ class ExamsTakenAdmin(admin.ModelAdmin):
     search_fields = ('user', )
     actions_on_top = True
     actions_on_bottom = True
+    inlines = [
+        AnsweredQuestionInline,
+    ]

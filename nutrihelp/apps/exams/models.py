@@ -70,6 +70,9 @@ class Exam(AbstractHistory):
     answered_questions = models.ManyToManyField(
         Question, verbose_name="Respuesta de pregunta", through='AnsweredQuestion')
 
+    def __str__(self):
+        return "{} {}".format(self.name, self.last_name)
+
     class Meta:
         ordering = ['-created_at']
         verbose_name = "Exámen"
@@ -83,3 +86,11 @@ class AnsweredQuestion(AbstractHistory):
                                  verbose_name="Pregunta", related_name='+')
     answer = models.ForeignKey(Answer, null=True, blank=True, on_delete=models.CASCADE,
                                verbose_name="Respuesta", related_name='+')
+
+    def __str__(self):
+        return "{}-{}-{}".format(self.exam, self.question, self.answer)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = "Repuesta a pregunta"
+        verbose_name_plural = "Respuesta a preguntas"

@@ -3,10 +3,12 @@ from django.forms.fields import DateField
 
 from .models import Exam, Question, AnsweredQuestion
 
+BIRTH_YEAR_CHOICES = range(1940, 2019)
+
 
 class TakeExamForm(forms.ModelForm):
     birthdate = forms.DateField(
-        widget=forms.SelectDateWidget(empty_label=("Escoja un año", "Escoja un mes", "Escoja un día"),), label="Fecha de nacimiento")
+        widget=forms.SelectDateWidget(years=BIRTH_YEAR_CHOICES, empty_label=("Escoja un año", "Escoja un mes", "Escoja un día"),), label="Fecha de nacimiento")
 
     class Meta:
         model = Exam
@@ -29,13 +31,3 @@ class TakeExamForm(forms.ModelForm):
         for question in Question.objects.filter(active=True):
             exam.answered_questions.add(
                 question, through_defaults={'answer': self.cleaned_data[question.slug]})
-        # profile = self.instance
-        # profile.first_name = self.cleaned_data[“first_name”]
-        # profile.last_name = self.cleaned_data[“last_name”]
-
-        # profile.interest_set.all().delete()
-        # for interest in self.cleaned_data[“interests”]:
-        #     ProfileInterest.objects.create(
-        #         profile=profile,
-        #         interest=interest,
-        #     )
