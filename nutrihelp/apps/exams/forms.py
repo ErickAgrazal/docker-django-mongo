@@ -1,7 +1,7 @@
 from django import forms
 from django.forms.fields import DateField
 
-from .models import Exam, Question, AnsweredQuestion
+from .models import Exam, Question, AnsweredQuestion, Recommendation
 
 BIRTH_YEAR_CHOICES = range(1940, 2019)
 
@@ -12,7 +12,7 @@ class TakeExamForm(forms.ModelForm):
 
     class Meta:
         model = Exam
-        exclude = ['answered_questions', 'user', 'active']
+        exclude = ['answered_questions', 'user', 'active', 'recommendation']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -25,9 +25,18 @@ class TakeExamForm(forms.ModelForm):
         pass
 
     def save(self, user):
+        score = 0
         exam = self.instance
         exam.user = user
         exam.save()
         for question in Question.objects.filter(active=True):
+            score += self.cleaned_data[question.slug].weight
             exam.answered_questions.add(
                 question, through_defaults={'answer': self.cleaned_data[question.slug]})
+        print(score)
+        try:
+            exam.recommendation = Recommendation.objects.get(
+                upper__gte=score, lower__lte=score)
+        except Exception:
+            exam.recommendation = None
+        exam.save(update_fields=['recommendation', ])

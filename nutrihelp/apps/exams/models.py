@@ -25,6 +25,7 @@ class Answer(AbstractHistory):
                                    null=True, verbose_name="Respuesta")
     question = models.ForeignKey(Question, null=True, blank=True, on_delete=models.SET_NULL,
                                  verbose_name="Pregunta", related_name='answers')
+    weight = models.IntegerField(default=10, verbose_name="Puntaje")
     slug = AutoSlugField(populate_from='answer_text')
 
     def __str__(self):
@@ -70,6 +71,9 @@ class Exam(AbstractHistory):
         User, on_delete=models.CASCADE, verbose_name="Usuario")
     answered_questions = models.ManyToManyField(
         Question, verbose_name="Respuesta de pregunta", through='AnsweredQuestion')
+    recommendation = models.ForeignKey(
+        'Recommendation', null=True, blank=True,
+        on_delete=models.CASCADE, verbose_name="Recomendación")
 
     def __str__(self):
         return "{} {}".format(self.name, self.last_name)
@@ -98,8 +102,8 @@ class AnsweredQuestion(AbstractHistory):
 
 
 class Recommendation(AbstractHistory):
-    upper = models.IntegerField(default=100, verbose_name="% Puntaje superior")
-    bottom = models.IntegerField(default=0, verbose_name="% Puntaje inferior")
+    upper = models.IntegerField(default=100, verbose_name="Puntaje superior")
+    lower = models.IntegerField(default=0, verbose_name="Puntaje inferior")
     title = models.CharField(max_length=20, blank=True,
                              null=True, verbose_name="Título")
     content = HTMLField(verbose_name="Contenido")

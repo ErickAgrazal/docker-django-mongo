@@ -38,7 +38,7 @@ class ExamsTakenAdmin(admin.ModelAdmin):
 
 @admin.register(Recommendation)
 class RecommendationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'upper', 'bottom')
+    list_display = ('title', 'upper', 'lower')
     # list_filter = []
     actions_on_top = True
     actions_on_bottom = True
