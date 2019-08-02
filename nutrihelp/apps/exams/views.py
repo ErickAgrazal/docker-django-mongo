@@ -3,7 +3,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
-from django.views.generic import FormView
+from django.views.generic import FormView, TemplateView
+from django.shortcuts import redirect
 
 from .forms import TakeExamForm
 
@@ -29,11 +30,15 @@ class TakeExamView(FormView):
         # delete it since its no longer needed
         if self.request.session.test_cookie_worked():
             self.request.session.delete_test_cookie()
-        form.save(user=self.request.user)
-        return super(TakeExamView, self).form_valid(form)
+        exam = form.save(user=self.request.user)
+        return redirect('exams:recommendation', slug=exam.recommendation.slug)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["title"] = "Examen"
         context["buttonText"] = "Enviar"
         return context
+
+
+class RecommendationView(TemplateView):
+    template_name = "recommendation.html"

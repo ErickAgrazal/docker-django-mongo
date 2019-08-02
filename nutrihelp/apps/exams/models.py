@@ -74,6 +74,7 @@ class Exam(AbstractHistory):
     recommendation = models.ForeignKey(
         'Recommendation', null=True, blank=True,
         on_delete=models.CASCADE, verbose_name="Recomendación")
+    slug = AutoSlugField(populate_from='user')
 
     def __str__(self):
         return "{} {}".format(self.name, self.last_name)
@@ -107,6 +108,7 @@ class Recommendation(AbstractHistory):
     title = models.CharField(max_length=20, blank=True,
                              null=True, verbose_name="Título")
     content = HTMLField(verbose_name="Contenido")
+    slug = AutoSlugField(populate_from='title')
 
     def __str__(self):
         return self.title

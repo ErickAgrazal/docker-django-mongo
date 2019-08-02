@@ -40,3 +40,4 @@ class TakeExamForm(forms.ModelForm):
         except Exception:
             exam.recommendation = None
         exam.save(update_fields=['recommendation', ])
+        return exam
